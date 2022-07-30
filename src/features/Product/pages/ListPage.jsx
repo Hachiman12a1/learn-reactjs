@@ -2,6 +2,7 @@ import { Box, Container, Grid, makeStyles, Paper } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import productApi from "api/productApi";
 import { useEffect, useState } from "react";
+import ProductFilters from "../components/ProductFilters";
 import ProductList from "../components/ProductList";
 import ProductSkeletonList from "../components/ProductSkeletonList";
 import ProductSort from "../components/ProductSort";
@@ -67,12 +68,21 @@ function ListPage(props) {
     }));
   };
 
+  const handleFiltersChange = (newFilters) => {
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ...newFilters,
+    }));
+  };
+
   return (
     <Box>
       <Container>
         <Grid container spacing={1}>
           <Grid item className={classes.left}>
-            <Paper elevation={0}>Left Column</Paper>
+            <Paper elevation={0}>
+              <ProductFilters filters = {filters} onChange = {handleFiltersChange}/>
+            </Paper>
           </Grid>
           <Grid item className={classes.right}>
             <Paper elevation={0}>
