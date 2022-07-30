@@ -1,8 +1,14 @@
 .album {
+  &--active {
+    background-color: goldenrod;
+  }
   &__thumbnail {
     & > img {
       width: 190px;
       border-radius: 0.5rem;
+    }
+    &--active {
+      background-color: goldenrod;
     }
   }
   &__name {

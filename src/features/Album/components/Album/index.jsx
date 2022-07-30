@@ -9,8 +9,8 @@ Album.propTypes = {
 function Album(props) {
   const { album } = props;
   return (
-    <div className="album">
-      <div className="album__thumbnail">
+    <div className="album album--active album--special">
+      <div className="album__thumbnail album__thumbnail--active">
         <img src={album.thumbnailUrl} alt={album.name} />
 
         {/* Other controls */}
