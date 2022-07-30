@@ -1,9 +1,8 @@
-import React, { useEffect } from "react";
-import { Box, Container, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+import { Box, Container, Grid, makeStyles, Paper } from "@material-ui/core";
 import productApi from "api/productApi";
-import { useState } from "react";
-import ProductSkeletonList from "../components/ProductSkeletonList";
+import { useEffect, useState } from "react";
 import ProductList from "../components/ProductList";
+import ProductSkeletonList from "../components/ProductSkeletonList";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
