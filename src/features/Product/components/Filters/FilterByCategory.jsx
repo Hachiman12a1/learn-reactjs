@@ -59,7 +59,7 @@ function FilterByCategory(props) {
 
   return (
     <Box className={classes.root}>
-      <Typography variant="subtitle2">Danh mục sản phẩm</Typography>
+      <Typography variant="subtitle2">DANH MỤC SẢN PHẨM</Typography>
       <ul className={classes.menu}>
         {categoryList.map((category) => (
           <li
