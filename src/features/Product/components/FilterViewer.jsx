@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { Box, Chip, makeStyles } from "@material-ui/core";
 
@@ -88,15 +88,19 @@ function FilterViewer(props) {
 
   const classes = useStyles();
 
+  const visibleFilters = useMemo(() => {
+    return FILTER_LIST.filter((x) => x.isVisible(filters));
+  }, [filters]);
+
   return (
     <Box className={classes.root} component="ul">
-      {FILTER_LIST.filter((x) => x.isVisible(filters)).map((x) => (
+      {visibleFilters.map((x) => (
         <li key={x.id}>
           <Chip
             label={x.getLabel(filters)}
             color={x.isActive(filters) ? "primary" : "default"}
             clickable={!x.isRemovable}
-            size = "small"
+            size="small"
             onClick={
               x.isRemovable
                 ? null
