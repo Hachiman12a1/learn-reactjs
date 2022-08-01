@@ -1,4 +1,4 @@
-import { Box, IconButton } from "@material-ui/core";
+import { Badge, Box, IconButton } from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,15 +8,16 @@ import MenuItem from "@material-ui/core/MenuItem";
 import { makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import { Close } from "@material-ui/icons";
+import { Close, ShoppingCart } from "@material-ui/icons";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CodeIcon from "@material-ui/icons/Code";
 import Login from "features/Auth/components/Login";
 import Register from "features/Auth/components/Register";
 import { logout } from "features/Auth/userSlice";
+import { cartItemsCountSelector } from "features/Cart/selectors";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,6 +51,8 @@ const MODE = {
 export default function Header() {
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.user.current);
+  const cartItemsCount = useSelector(cartItemsCountSelector);
+  const history = useHistory();
   const isLoggedIn = !!loggedUser.id;
 
   const [open, setOpen] = useState(false);
@@ -78,7 +81,11 @@ export default function Header() {
   const handleLogoutClick = () => {
     const action = logout();
     dispatch(action);
-  }
+  };
+
+  const handleCartClick = () => {
+    history.push('/cart');
+  };
 
   const classes = useStyles();
 
@@ -116,6 +123,16 @@ export default function Header() {
             </Button>
           )}
 
+          <IconButton aria-label="show 4 new mails" color="inherit" onClick={handleCartClick}>
+            <Badge
+              overlap="rectangular"
+              badgeContent={cartItemsCount}
+              color="secondary"
+            >
+              <ShoppingCart />
+            </Badge>
+          </IconButton>
+
           {isLoggedIn && (
             <IconButton>
               <AccountCircleIcon color="inherit" onClick={handleUserClick} />
@@ -137,7 +154,7 @@ export default function Header() {
           vertical: "top",
           horizontal: "right",
         }}
-        getContentAnchorEl = {null}
+        getContentAnchorEl={null}
       >
         <MenuItem onClick={handleCloseMenu}>My account</MenuItem>
         <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
