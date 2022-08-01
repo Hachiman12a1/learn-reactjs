@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Container, Grid, makeStyles, Paper } from "@material-ui/core";
 import ProductThumbnail from "../components/ProductThumbnail";
+import { useRouteMatch } from "react-router-dom";
+import useProductDetail from "../hooks/useProductDetail";
 
 const useStyles = makeStyles((theme) => ({
   root: {},
@@ -17,13 +19,25 @@ const useStyles = makeStyles((theme) => ({
 
 function DetailPage() {
   const classes = useStyles();
+
+  const {
+    params: { productId },
+  } = useRouteMatch();
+
+  const { product, loading } = useProductDetail(productId);
+
+  if(loading) {
+    // TODO : make this beautiful
+    return <Box>Loading</Box>
+  }
+
   return (
     <Box className={classes.root}>
       <Container>
         <Paper elevation={0}>
           <Grid container>
             <Grid item className={classes.left}>
-              <ProductThumbnail product = {{  }}/>
+              <ProductThumbnail product={product} />
             </Grid>
             <Grid item className={classes.right}>
               product info
