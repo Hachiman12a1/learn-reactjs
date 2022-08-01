@@ -39,3 +39,9 @@ DetailPage handleSubmit
 |__ AddToCartForm (form management)
 |  |__ QuantityField
 ```
+
+```
+/products/:productId --> ProductDescription 
+/products/:productId/additional --> ProductAdditional 
+/products/:productId/reviews --> ProductReviews
+```
