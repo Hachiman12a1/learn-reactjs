@@ -1,25 +1,26 @@
-import React from "react";
 import {
   Box,
   Container,
   Grid,
   LinearProgress,
   makeStyles,
-  Paper,
+  Paper
 } from "@material-ui/core";
-import ProductThumbnail from "../components/ProductThumbnail";
+import { addToCart } from "features/Cart/cartSlice";
+import { useDispatch } from "react-redux";
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import useProductDetail from "../hooks/useProductDetail";
-import ProductInfo from "../components/ProductInfo";
 import AddToCartForm from "../components/AddToCartForm";
-import ProductMenu from "../components/ProductMenu";
-import ProductDescription from "../components/ProductDescription";
 import ProductAdditional from "../components/ProductAdditional";
+import ProductDescription from "../components/ProductDescription";
+import ProductInfo from "../components/ProductInfo";
+import ProductMenu from "../components/ProductMenu";
 import ProductReviews from "../components/ProductReviews";
+import ProductThumbnail from "../components/ProductThumbnail";
+import useProductDetail from "../hooks/useProductDetail";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    paddingBottom : theme.spacing(3), 
+    paddingBottom: theme.spacing(3),
   },
   left: {
     width: "400px",
@@ -47,6 +48,7 @@ function DetailPage() {
   } = useRouteMatch();
 
   const { product, loading } = useProductDetail(productId);
+  const dispatch = useDispatch();
 
   if (loading) {
     return (
@@ -56,8 +58,15 @@ function DetailPage() {
     );
   }
 
-  const handleAddToCartSubmit = (formValues) => {
-    console.log("Form submit", formValues);
+  const handleAddToCartSubmit = ({ quantity }) => {
+    // console.log("Form submit", formValues);
+    const action = addToCart({
+      id: product.id,
+      product,
+      quantity,
+    });
+    console.log(action);
+    dispatch(action);
   };
   return (
     <Box className={classes.root}>
