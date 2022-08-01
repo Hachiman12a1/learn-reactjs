@@ -46,6 +46,7 @@ LoginForm.propTypes = {
 
 function LoginForm(props) {
   const classes = useStyles();
+  
   const schema = yup.object().shape({
     identifier: yup
       .string()
